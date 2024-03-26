@@ -12,15 +12,15 @@ const cors = require("cors");
  server.use(express.json());
 server.use(cors());
 
-
+const PORT=process.env.PORT || 5000
 // saving the frontend code in the server
 
 
 mongoose.connect(process.env.URL)
 .then((res)=>{
     console.log("database connected")
-    server.listen(process.env.PORT,()=>{
-        console.log(`server is running ${process.env.PORT}`)
+    server.listen(PORT,()=>{
+        console.log(`server is running ${PORT}`)
     })
 })
 .catch((err)=>{
