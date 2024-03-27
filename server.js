@@ -5,7 +5,7 @@ const server=express();
 // server.use(express.json())
 const mongoose=require("mongoose");
 const router=require("./Router/Router");
-// const path = require("path");
+const path = require("path");
 const Router=require("./Router/CreatePost");
 const userRouter=require("./Router/UserDetailsRouter");
 const cors = require("cors");
@@ -26,11 +26,15 @@ mongoose.connect(process.env.URL)
 .catch((err)=>{
     console.log(err)
 })
+
+
+server.use(express.static(path.join(__dirname, "./frontend/build")));
+server.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "./frontend/build/index.html")),
+  function (err) {
+    return res.status(500).send(err)
+  }
+});
 server.use(Router);
 server.use(router);
 server.use(userRouter)
-// server.use(express.static(path.resolve(__dirname, "frontend", "build")));
-// server.get("/", (req, res) => {
-//      server.use(express.static(path.resolve(__dirname, "frontend", "build")));
-//     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
-//   });
